@@ -9,7 +9,7 @@ import altair as alt  # Para crear gráficos interactivos
 try:
     st.set_page_config(
         page_title="Failure Classifier",
-        page_icon="figuras/icone.png",  # Ícono que aparecerá en la pestaña
+        page_icon="icone.png",  # Ícono que aparecerá en la pestaña
         layout="wide"  # Usa el ancho completo de la página para el contenido
     )
 except FileNotFoundError:
@@ -27,16 +27,14 @@ except FileNotFoundError:
 def load_models():
     try:
         # Cargamos los tres artefactos que guardamos en los notebooks anteriores.
-        preprocessor = joblib.load('model/preprocessor_pipeline.pkl')
-        model = joblib.load('model/final_model.joblib')
-        label_encoder = joblib.load('model/label_encoder.pkl')
+        preprocessor = joblib.load('preprocessor_pipeline.pkl')
+        model = joblib.load('final_model.joblib')
+        label_encoder = joblib.load('label_encoder.pkl')
         return preprocessor, model, label_encoder
     except FileNotFoundError as e:
         # Manejo de error si los archivos del modelo no se encuentran en la ruta especificada.
         st.error(
             f"Error al cargar los archivos del modelo: {e}. "
-            "Por favor, asegúrate de que 'preprocessor_pipeline.pkl', 'final_model.joblib', y 'label_encoder.pkl' "
-            "estén en el directorio 'model/'."
         )
         return None, None, None
     except AttributeError as e:
